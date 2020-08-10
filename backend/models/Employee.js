@@ -32,8 +32,24 @@ const employeeSchema = mongoose.Schema({
         default: false
     },
     assignments: {
-        type: [String]
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Review'
+        }]
     }
+}, {
+    toJSON: {
+        virtuals: true
+    },
+    toObject: {
+        virtuals: true
+    }
+});
+
+employeeSchema.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'employee'
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);

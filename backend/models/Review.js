@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
-const Employee = require('../models/Employee');
 
 const reviewSchema = mongoose.Schema({
-    employeeId: {
+    employee: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Employee,
+        ref: 'Employee',
         required: 'The employee is required'
     },
     //TODO: reviewer name (if reviewer is deleted)
-    reviewerId: {
+    reviewer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Employee,
+        ref: 'Employee',
         required: 'The reviewer is required'
     },
     date: {
@@ -38,6 +37,19 @@ const reviewSchema = mongoose.Schema({
         min: 1,
         max: 5
     }
+}, {
+    toJSON: {
+        virtuals: true
+    },
+    toObject: {
+        virtuals: true
+    }
+});
+
+reviewSchema.virtual('feedbacks', {
+    ref: 'Feedback',
+    localField: '_id',
+    foreignField: 'review'
 });
 
 module.exports = mongoose.model('Review', reviewSchema);
