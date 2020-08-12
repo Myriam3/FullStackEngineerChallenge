@@ -1,0 +1,17 @@
+.table-list {
+    border: solid map_get($colors, grey-x-light) 1px;
+
+    .table-list-item {
+
+        border: solid map_get($colors, grey-x-light) 1px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+
+        .col {
+            display: inline-block;
+            padding: 1rem;
+        }
+    }
+}

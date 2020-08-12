@@ -1,0 +1,39 @@
+.top-nav {
+    background: map_get($colors, dark-primary);
+    display: flex;
+    align-items: center;
+    color: map_get($colors, primary-contrast);
+    padding: 0.5rem 0;
+
+    a {
+        display: inline-block;
+        margin: 0 0.5rem;
+    }
+}
+
+@media screen and (min-width:map_get($breakpoints, md)) {
+    body {
+        padding-top: $topNavHeight + $navHeight;
+    }
+
+    .top-nav,
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .top-nav {
+        height: $topNavHeight;
+        padding: 0;
+    }
+
+    .nav {
+        top: $topNavHeight;
+
+        ul {
+            height: $navHeight;
+        }
+    }
+}

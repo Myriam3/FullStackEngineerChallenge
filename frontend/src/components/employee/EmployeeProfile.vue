@@ -7,21 +7,25 @@
     </section>
     <!-- Employee's reviews -->
     <section>
-      <h2>{{ employee.firstName }} {{ employee.lastName }} Reviews</h2>
+      <h2 class="h2">
+        Reviews
+      </h2>
       <template v-if="this.employee.reviews.length">
         <div class="last-reviews">
-          <h3>Last review</h3>
+          <h3 class="h3">Last review</h3>
           <Review :reviewPreview="lastReview" />
         </div>
         <div v-if="this.employee.reviews.length > 1" class="review-history">
-          <h3>Review History</h3>
-          <ReviewList :reviewList="this.employee.reviews" />
+          <section>
+            <h3 class="h3">Review History</h3>
+            <ReviewList :reviewList="this.employee.reviews" />
+          </section>
         </div>
       </template>
       <p v-else>The employee has no review.</p>
     </section>
-    <section>
-      <h2>Assignments</h2>
+    <section v-if="isAdmin($store) || isOwnProfile($store, employee._id)">
+      <h2 class="h2">Assignments</h2>
       <template v-if="employee.assignments.length">
         <ReviewList :reviewList="this.employee.assignments" />
       </template>
@@ -33,6 +37,7 @@
 </template>
 <script>
 import store from "@/store";
+import mixins from "@/mixins/index.js";
 import Nav from "@/components/Nav.vue";
 import EmployeeCard from "@/components/employee/EmployeeCard.vue";
 import Review from "@/components/review/Review.vue";
@@ -69,5 +74,6 @@ export default {
         console.log(error);
       });
   },
+  mixins: [mixins],
 };
 </script>

@@ -30,4 +30,6 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@import "@/scss/components/Nav.scss";
+</style>

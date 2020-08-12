@@ -1,16 +1,15 @@
 <template>
   <div>
-    <nav />
+    <Nav />
     <section>
-      <h2>Employee List</h2>
+      <h2 class="h2">Employee List</h2>
       <ul class="table-list">
-        <li
+        <EmployeeListItem
           class="table-list-item"
           v-for="(employee, index) in employeeList"
           :key="index"
-        >
-          <EmployeeListItem :employee="employee" />
-        </li>
+          :employee="employee"
+        />
       </ul>
     </section>
   </div>

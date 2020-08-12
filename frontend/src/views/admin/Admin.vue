@@ -1,8 +1,8 @@
 <!-- Admin dashboard -->
 <template>
   <div class="admin-theme">
-    <h1>Admin dashboard</h1>
     <Nav />
+    <h1>Admin dashboard</h1>
     <router-view />
   </div>
 </template>

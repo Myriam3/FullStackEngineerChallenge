@@ -1,0 +1,31 @@
+.link {
+    text-decoration: underline;
+    color: map_get($colors, dark-primary);
+
+    &:hover,
+    &:focus {
+        color: map_get($colors, primary);
+    }
+}
+
+.btn {
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.date-tag {
+    color: map_get($colors, secondary-text);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.score-tag {
+    background: map_get($colors, secondary);
+    color: map_get($colors, secondary-contrast);
+    display: inline-block;
+    border-radius: 16px;
+    font-size: 16px;
+    padding: 6px 10px;
+}

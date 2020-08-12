@@ -1,0 +1,27 @@
+.employee-card {
+    padding: 2rem 1rem;
+    background: map_get($colors, grey-x-light);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12),
+        0 1px 5px 0 rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .name {
+        flex-basis: 100%;
+        margin-top: 0;
+    }
+
+    .infos {
+        font-weight: 300;
+
+    }
+
+    .links a {
+        display: block;
+        padding: 0.5rem 0.25rem;
+    }
+}

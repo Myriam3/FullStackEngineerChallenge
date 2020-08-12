@@ -1,1 +1,44 @@
 @import 'base/_normalize.scss';
+@import 'base/_typography.scss';
+@import 'base/_elements.scss';
+@import 'base/_list.scss';
+@import 'base/_navigation.scss';
+
+
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+p {
+    margin: 0.5rem 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+section {
+    padding: 2rem 0;
+}
+
+/*** Transitions ***/
+
+.link,
+.btn {
+    transition: all 0.25s ease-out;
+}

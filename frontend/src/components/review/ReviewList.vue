@@ -1,15 +1,13 @@
 <template>
-  <section>
+  
     <ul class="table-list">
-      <li
-        class="table-list-item"
+      <ReviewListItem
         v-for="(review, index) in reviewList"
         :key="index"
-      >
-        <ReviewListItem :review="review" />
-      </li>
+        class="table-list-item"
+        :review="review"
+      />
     </ul>
-  </section>
 </template>
 
 <script>

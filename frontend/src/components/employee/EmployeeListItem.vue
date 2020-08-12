@@ -1,25 +1,49 @@
 <template>
-  <div class="employee-item" v-if="employee">
-    <span class="col name"
-      >{{ employee.firstName }} {{ employee.lastName }}
+  <li class="employee-item">
+    <span class="col name">
+      <Avatar />
+      {{ getFullName(employee) }}
     </span>
     <span class="col role">{{ employee.role }}</span>
     <span class="col email">{{ employee.email }}</span>
     <span class="col year">Since {{ employee.year }}</span>
-    <router-link :to="{ path: './employees/profile/' + employee._id }"
+    <router-link
+      class="link"
+      :to="{ path: './employees/profile/' + employee._id }"
       >Profile</router-link
     >
-  </div>
+  </li>
 </template>
 <script>
+import mixins from "@/mixins/index.js";
+import Avatar from "@/components/employee/Avatar.vue";
+
 export default {
   name: "EmployeeListItem",
+  components: {
+    Avatar,
+  },
   props: {
     employee: {
       type: Object,
       required: true,
     },
   },
+  mixins: [mixins],
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.col.name {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+.email {
+  font-weight: 300;
+}
+.avatar {
+  max-width: 50px;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+</style>

@@ -1,0 +1,17 @@
+.nav {
+    background: map_get($colors, primary);
+    color: map_get($colors, primary-contrast);
+
+    ul {
+        width: 100%;
+        min-height: $navHeight;
+        display: flex;
+        align-items: center;
+
+        li {
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+    }
+
+}

@@ -1,0 +1,68 @@
+.review {
+    padding: 2rem 1rem;
+    background: map_get($colors, grey-x-light);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07),
+        0 3px 1px -2px rgba(0, 0, 0, 0.06),
+        0 1px 5px 0 rgba(0, 0, 0, 0.2);
+
+    .review-title {
+        margin-bottom: 1rem;
+
+        a {
+            color: map_get($colors, primary-text);
+
+            &:hover,
+            &:focus {
+                color: map_get($colors, primary);
+            }
+        }
+    }
+
+    .review-info {
+        font-weight: 300;
+
+        .review-period {
+            color: map_get($colors, secondary);
+        }
+
+        .review-reviewer,
+        .review-employee {
+            .avatar {
+                max-width: 30px;
+                display: inline-block;
+                vertical-align: text-bottom;
+            }
+        }
+
+    }
+
+    .review-content {
+        .title {
+            text-align: center;
+            font-weight: normal;
+        }
+
+        .technical-review,
+        .general-review {
+            font-weight: 300;
+        }
+
+        .general-review {}
+    }
+
+    @media screen and (min-width:map_get($breakpoints, md)) {
+
+        .review-date,
+        .review-reviewer,
+        .review-feedback-count {
+            text-align: right;
+        }
+
+        .technical-review,
+        .general-review {
+            max-width: 70%;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+    }
+}
