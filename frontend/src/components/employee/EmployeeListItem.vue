@@ -6,7 +6,6 @@
     </span>
     <span class="col role">{{ employee.role }}</span>
     <span class="col email">{{ employee.email }}</span>
-    <span class="col year">Since {{ employee.year }}</span>
     <router-link
       class="link"
       :to="{ path: './employees/profile/' + employee._id }"

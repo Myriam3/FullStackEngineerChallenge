@@ -4,9 +4,39 @@
     <!-- Employee card -->
     <section>
       <EmployeeCard :employee="employee" />
+      <div v-if="isAdmin($store)" class="modify-employee">
+        <p v-if="this.success" class="success-msg">{{ this.success }}</p>
+        <button
+          v-if="!this.modifyMode"
+          class="btn secondary modify-btn"
+          @click="switchModifyMode"
+        >
+          Modify
+        </button>
+        <button
+          v-if="!this.modifyMode"
+          class="btn delete-btn"
+          @click="deleteEmployee"
+        >
+          Delete
+        </button>
+        <EditEmployee
+          v-if="this.modifyMode"
+          :modify="true"
+          :modifyEmployee="employee"
+          @update-success="this.handleModification"
+        />
+        <button
+          v-if="this.modifyMode"
+          class="btn link cancel-btn"
+          @click="switchModifyMode"
+        >
+          Cancel
+        </button>
+      </div>
     </section>
     <!-- Employee's reviews -->
-    <section>
+    <section v-if="!modifyMode">
       <h2 class="h2">
         Reviews
       </h2>
@@ -24,7 +54,13 @@
       </template>
       <p v-else>The employee has no review.</p>
     </section>
-    <section v-if="isAdmin($store) || isOwnProfile($store, employee._id)">
+    <!--Employee assignments-->
+    <section
+      v-if="
+        !this.modifyMode &&
+          (isAdmin($store) || isOwnProfile($store, employee._id))
+      "
+    >
       <h2 class="h2">Assignments</h2>
       <template v-if="employee.assignments.length">
         <ReviewList :reviewList="this.employee.assignments" />
@@ -40,6 +76,7 @@ import store from "@/store";
 import mixins from "@/mixins/index.js";
 import Nav from "@/components/Nav.vue";
 import EmployeeCard from "@/components/employee/EmployeeCard.vue";
+import EditEmployee from "@/views/admin/EditEmployee";
 import Review from "@/components/review/Review.vue";
 import ReviewList from "@/components/review/ReviewList.vue";
 
@@ -50,6 +87,13 @@ export default {
     EmployeeCard,
     Review,
     ReviewList,
+    EditEmployee,
+  },
+  data() {
+    return {
+      modifyMode: false,
+      success: false,
+    };
   },
   computed: {
     employee() {
@@ -57,6 +101,34 @@ export default {
     },
     lastReview() {
       return this.employee.reviews[this.employee.reviews.length - 1];
+    },
+  },
+  methods: {
+    switchModifyMode() {
+      if (this.isAdmin(store)) this.modifyMode = !this.modifyMode;
+    },
+    deleteEmployee() {
+      if (confirm("Do you really want to delete the employee?")) {
+        console.log("delete");
+        store
+          .dispatch("employees/delete", this.employee._id)
+          .then((data) => {
+            console.log("from profile", data);
+            this.$router.push({
+              name: "employees",
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    handleModification(message) {
+      this.switchModifyMode();
+      this.success = message;
+      window.setTimeout(() => {
+        this.success = false;
+      }, 4000);
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -77,3 +149,32 @@ export default {
   mixins: [mixins],
 };
 </script>
+*
+<style lang="scss" scoped>
+.modify-employee {
+  position: relative;
+  .success-msg {
+    text-align: center;
+  }
+  .cancel-btn {
+    display: block;
+    margin: 0 auto;
+  }
+  .modify-btn,
+  .delete-btn {
+    margin-top: 1rem;
+  }
+  @media screen and (min-width: map_get($breakpoints, md)) {
+    .modify-btn,
+    .delete-btn {
+      position: absolute;
+      bottom: -1rem;
+      right: 1rem;
+      margin-top: 0;
+    }
+    .modify-btn {
+      right: 8rem;
+    }
+  }
+}
+</style>

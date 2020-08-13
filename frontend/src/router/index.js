@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../components/NotFound'
 import Admin from '../views/admin/Admin.vue'
+import EditEmployee from '../views/admin/EditEmployee.vue'
 import EmployeeList from '../components/employee/EmployeeList.vue'
 import EmployeeProfile from '../components/employee/EmployeeProfile.vue'
 import Review from '../components/review/Review.vue'
@@ -51,7 +52,7 @@ const routes = [{
     children: [{
         path: 'employees/add',
         name: 'admin-add-employee',
-        component: Admin
+        component: EditEmployee
       },
       {
         path: 'reviews/add',

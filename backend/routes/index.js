@@ -16,6 +16,7 @@ function addDocument(model, req, res, message) {
         .then(() =>
             res.status(201).json({
                 message: message,
+                objId: newObj._id
             })
         )
         .catch((error) =>
@@ -66,11 +67,11 @@ function updateDocument(model, req, res, message) {
                 message: message,
             })
         )
-        .catch((error) =>
+        .catch((error) => {
             res.status(400).json({
                 error,
             })
-        );
+        });
 }
 
 //DELETE

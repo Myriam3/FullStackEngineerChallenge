@@ -16,8 +16,16 @@ export default {
         return api.get('/employees')
     },
     getEmployeeProfile(id) {
-        console.log('api call', id);
         return api.get('/employees/profile/' + id)
+    },
+    addNewEmployee(employee) {
+        return api.post('/employees', employee)
+    },
+    updateEmployee(id, employee) {
+        return api.put('/employees/' + id, employee)
+    },
+    deleteEmployee(id) {
+        return api.delete('/employees/' + id)
     },
 
     // Reviews
@@ -25,7 +33,6 @@ export default {
         return api.get('/reviews')
     },
     getFullReview(id) {
-        console.log('api call', id);
         return api.get('/reviews/view/' + id)
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <li class="review-item" v-if="review">
     <span class="col period">{{ review.reviewPeriod }}</span>
-    <span class="col title">{{ review.title }}</span>
+    <span class="col col-2 title">{{ review.title }}</span>
     <span class="col score"
       ><span class="score-tag">{{ review.score }}</span></span
     >
@@ -31,7 +31,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.review-item .period {
-  color: map_get($colors, secondary);
+.review-item {
+  .period {
+    color: map_get($colors, secondary);
+  }
 }
 </style>

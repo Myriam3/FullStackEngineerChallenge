@@ -3,7 +3,7 @@
 @import 'base/_elements.scss';
 @import 'base/_list.scss';
 @import 'base/_navigation.scss';
-
+@import 'base/_form.scss';
 
 ul,
 li {
@@ -27,9 +27,9 @@ p {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 2rem 1rem;
 }
 
 section {

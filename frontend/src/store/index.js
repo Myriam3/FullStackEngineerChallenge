@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    admin: false,
+    admin: true,
     user: '5f2fcaaf5bbb5505145a07b6'
   },
   modules: {

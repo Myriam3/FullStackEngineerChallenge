@@ -14,7 +14,7 @@ const employeeSchema = mongoose.Schema({
         required: 'The email is required',
         lowercase: true,
         trim: true,
-        //TODO email validation / unique:true
+        unique: true
     },
     role: {
         type: String,

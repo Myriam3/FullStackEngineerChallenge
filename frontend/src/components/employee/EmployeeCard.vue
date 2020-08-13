@@ -6,7 +6,7 @@
     </div>
     <div class="infos">
       <p class="role">{{ employee.role }}</p>
-      <p class="year">Since {{ employee.year }}</p>
+      <p class="year">Joined in: {{ employee.year }}</p>
       <p class="email">{{ employee.email }}</p>
     </div>
     <div class="links">
@@ -40,5 +40,5 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@/scss/components/employee/employeeCard.scss";
+@import "@/scss/components/employee/EmployeeCard.scss";
 </style>

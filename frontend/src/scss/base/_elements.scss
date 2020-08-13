@@ -13,6 +13,43 @@
     background: none;
     color: inherit;
     cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+
+    &.submit {
+        background: map_get($colors, primary);
+        color: map_get($colors, primary-contrast);
+
+        &:hover,
+        &:focus {
+            background: map_get($colors, dark-primary);
+        }
+    }
+
+    &.secondary {
+        background: map_get($colors, secondary);
+        color: map_get($colors, secondary-contrast);
+
+        &:hover,
+        &:focus {
+            background: darken(map_get($colors, secondary), 5%);
+        }
+    }
+
+    &.delete-btn {
+        background: lighten(map_get($colors, primary-text), 5%);
+        color: map_get($colors, white);
+
+        &:hover,
+        &:focus {
+            background: darken(map_get($colors, primary-text), 5%);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }
 
 .date-tag {
@@ -28,4 +65,12 @@
     border-radius: 16px;
     font-size: 16px;
     padding: 6px 10px;
+}
+
+.error-msg {
+    color: map_get($colors, secondary);
+}
+
+.success-msg {
+    color: map_get($colors, primary);
 }
