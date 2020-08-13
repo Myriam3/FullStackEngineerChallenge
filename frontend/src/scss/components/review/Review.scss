@@ -66,4 +66,34 @@
             font-weight: 300;
         }
     }
+
+
+
+}
+
+.modify-review {
+    position: relative;
+
+    .success-msg {
+        text-align: center;
+    }
+
+    .cancel-btn {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .modify-btn,
+    .delete-btn {
+        margin-top: 1rem;
+    }
+
+    @media screen and (min-width: map_get($breakpoints, md)) {
+        .modify-btn {
+            position: absolute;
+            bottom: -1rem;
+            right: 1rem;
+            margin-top: 0;
+        }
+    }
 }

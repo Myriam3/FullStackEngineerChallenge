@@ -16,7 +16,8 @@
     padding: 0.5rem 1rem;
     border-radius: 4px;
 
-    &.submit {
+    &.submit,
+    &.new-btn {
         background: map_get($colors, primary);
         color: map_get($colors, primary-contrast);
 

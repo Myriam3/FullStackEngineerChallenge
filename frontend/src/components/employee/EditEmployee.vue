@@ -57,11 +57,6 @@
       <p v-if="$v.employee.year.$error" class="error-msg">
         The year must be between 2000 and {{ new Date().getFullYear() }}
       </p>
-      <!--<Select
-        label="TEST Select ..."
-        :options="['carotte', 'banane', 'kiwi']"
-        class="field"
-      />-->
       <div class="field checkbox">
         <input
           type="checkbox"
@@ -175,6 +170,7 @@ export default {
       };
     },
     editEmployee() {
+      this.$v.$touch();
       if (!this.$v.$invalid) {
         // Modify Employee
         if (this.modify) {

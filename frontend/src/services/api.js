@@ -34,5 +34,14 @@ export default {
     },
     getFullReview(id) {
         return api.get('/reviews/view/' + id)
+    },
+    addNewReview(review) {
+        return api.post('/reviews', review)
+    },
+    updateReview(id, review) {
+        return api.put('/reviews/' + id, review)
+    },
+    deleteReview(id) {
+        return api.delete('/reviews/' + id)
     }
 }

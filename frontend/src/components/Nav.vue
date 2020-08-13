@@ -12,9 +12,6 @@
           >New employee</router-link
         >
       </li>
-      <li v-if="isAdmin">
-        <router-link :to="{ name: 'admin-add-review' }">New review</router-link>
-      </li>
     </ul>
   </nav>
 </template>

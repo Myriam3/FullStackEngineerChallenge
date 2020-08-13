@@ -13,6 +13,9 @@ export const mutations = {
     },
     SET_CURRENT_REVIEW(state, reviews) {
         state.currentReview = reviews;
+    },
+    CLEAR_CURRENT_REVIEW(state) {
+        state.currentReview = null;
     }
 };
 
@@ -38,6 +41,45 @@ export const actions = {
             .then((response) => {
                 console.log('fetch full review', response.data);
                 commit('SET_CURRENT_REVIEW', response.data);
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    update({
+        dispatch
+    }, {
+        id,
+        review
+    }) {
+        return api
+            .updateReview(id, review)
+            .then((response) => {
+                dispatch('fetchById', id);
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    addNew({}, review) {
+        return api
+            .addNewReview(review)
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    delete({
+        commit
+    }, id) {
+        return api
+            .deleteReview(id)
+            .then((response) => {
+                commit('CLEAR_CURRENT_REVIEW');
                 return response.data;
             })
             .catch((error) => {

@@ -53,6 +53,14 @@
         </div>
       </template>
       <p v-else>The employee has no review.</p>
+      <router-link
+        :to="{
+          name: 'admin-add-review',
+          params: { employeeId: this.employee._id },
+        }"
+        class="btn new-btn"
+        >New review</router-link
+      >
     </section>
     <!--Employee assignments-->
     <section
@@ -76,7 +84,7 @@ import store from "@/store";
 import mixins from "@/mixins/index.js";
 import Nav from "@/components/Nav.vue";
 import EmployeeCard from "@/components/employee/EmployeeCard.vue";
-import EditEmployee from "@/views/admin/EditEmployee";
+import EditEmployee from "@/components/employee/EditEmployee";
 import Review from "@/components/review/Review.vue";
 import ReviewList from "@/components/review/ReviewList.vue";
 
@@ -176,5 +184,10 @@ export default {
       right: 8rem;
     }
   }
+}
+
+.new-btn {
+  margin: 1rem 0;
+  display: inline-block;
 }
 </style>

@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../components/NotFound'
 import Admin from '../views/admin/Admin.vue'
-import EditEmployee from '../views/admin/EditEmployee.vue'
+import EditEmployee from '../components/employee/EditEmployee.vue'
 import EmployeeList from '../components/employee/EmployeeList.vue'
 import EmployeeProfile from '../components/employee/EmployeeProfile.vue'
 import Review from '../components/review/Review.vue'
+import EditReview from '../components/review/EditReview.vue'
 
 Vue.use(VueRouter)
 
@@ -55,12 +56,12 @@ const routes = [{
         component: EditEmployee
       },
       {
-        path: 'reviews/add',
+        path: 'employees/:employeeId/new-review',
         name: 'admin-add-review',
-        component: Admin
+        component: EditReview
       },
       {
-        path: 'reviews/assign',
+        path: 'reviews/:id/assign',
         name: 'admin-assign-review',
         component: Admin
       }
