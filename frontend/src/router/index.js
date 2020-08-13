@@ -79,4 +79,19 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  // Check if the user is "connected"
+  if (to.path !== '/') {
+    if (window.localStorage.getItem("connected") === "connected") {
+      next()
+    } else {
+      next({
+        path: '/'
+      });
+    }
+  } else {
+    next();
+  }
+})
+
 export default router

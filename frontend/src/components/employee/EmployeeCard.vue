@@ -1,5 +1,5 @@
 <template>
-  <div class="employee-card">
+  <div class="employee-card card">
     <h2 class="name h2">{{ getFullName(employee) }} Profile</h2>
     <div class="picture">
       <Avatar />

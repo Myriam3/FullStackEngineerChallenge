@@ -39,7 +39,6 @@ export const actions = {
         return api
             .getFullReview(id)
             .then((response) => {
-                console.log('fetch full review', response.data);
                 commit('SET_CURRENT_REVIEW', response.data);
                 return response.data;
             })

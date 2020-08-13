@@ -104,7 +104,6 @@ export const actions = {
         return api
             .deleteEmployee(id)
             .then((response) => {
-                console.log('success', response.data)
                 commit('CLEAR_CURRENT_EMPLOYEE');
                 return response.data;
             })

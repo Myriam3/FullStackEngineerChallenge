@@ -2,12 +2,27 @@
     background: map_get($colors, dark-primary);
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     color: map_get($colors, primary-contrast);
     padding: 0.5rem 0;
 
     a {
         display: inline-block;
         margin: 0 0.5rem;
+    }
+
+    .title {
+        text-align: center;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .admin-btn,
+    .logout-btn {
+        width: 100px;
+        text-align: center;
+        margin: 0.5rem;
     }
 }
 
@@ -28,6 +43,30 @@
     .top-nav {
         height: $topNavHeight;
         padding: 0;
+
+        .logout-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: $topNavHeight;
+            line-height: $topNavHeight;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            background: darken(map_get($colors, secondary), 5%);
+            color: map_get($colors, primary-contrast);
+
+            &:hover,
+            &:focus {
+                background: lighten(map_get($colors, secondary), 5%);
+            }
+        }
+
+        .title {
+            padding: 0;
+        }
+
     }
 
     .nav {
@@ -37,4 +76,9 @@
             height: $navHeight;
         }
     }
+}
+
+.admin-theme .top-nav {
+    background: map_get($colors, secondary);
+    color: map_get($colors, primary-contrast);
 }

@@ -1,7 +1,7 @@
 <template>
   <div v-if="review" :class="reviewPreview ? 'review-preview' : 'full-review'">
     <Nav v-if="!reviewPreview" />
-    <section class="review">
+    <section class="review card">
       <p v-if="reviewPreview" class="review-title">
         <router-link
           class="link"
@@ -158,7 +158,6 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before route enter Review.vue");
     store
       .dispatch("reviews/fetchById", to.params.id)
       .then((data) => {

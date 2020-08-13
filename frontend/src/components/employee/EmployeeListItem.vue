@@ -1,5 +1,5 @@
 <template>
-  <li class="employee-item">
+  <li class="employee-item" v-if="employee._id !== $store.state.user">
     <span class="col name">
       <Avatar />
       {{ getFullName(employee) }}

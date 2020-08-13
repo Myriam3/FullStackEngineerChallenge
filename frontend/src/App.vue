@@ -1,13 +1,66 @@
 <template>
-  <div id="app" class="container">
+  <div id="app" class="container" :class="isAdmin ? 'admin-theme' : ''">
     <div id="nav" class="top-nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/dashboard">User dashboard</router-link> |
-      <router-link to="/admin">Admin</router-link>
+      <button
+        v-if="this.isConnected"
+        @click="logOut"
+        class="btn secondary logout-btn"
+      >
+        Log out
+      </button>
+      <div class="title">
+        {{
+          isConnected
+            ? isAdmin
+              ? "Welcome to the Admin dashboad!"
+              : "Welcolme to your dashboard!"
+            : "Welcome! Choose your user"
+        }}
+      </div>
     </div>
-    <router-view />
+
+    <router-view></router-view>
   </div>
 </template>
+
+<script>
+import store from "@/store";
+
+export default {
+  computed: {
+    isAdmin() {
+      return store.state.admin;
+    },
+    isConnected() {
+      return store.state.user;
+    },
+  },
+  methods: {
+    logOut() {
+      store
+        .dispatch("logOut")
+        .then((data) => {
+          this.$router.push({
+            name: "home",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    store
+      .dispatch("logOut")
+      .then((data) => {
+        next();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
+</script>
 
 <style lang="scss">
 @import "@/scss/global.scss";

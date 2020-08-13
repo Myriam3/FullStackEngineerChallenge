@@ -14,7 +14,7 @@
           Modify
         </button>
         <button
-          v-if="!this.modifyMode"
+          v-if="!this.modifyMode && !this.isCurrentUser"
           class="btn delete-btn"
           @click="deleteEmployee"
         >
@@ -54,6 +54,7 @@
       </template>
       <p v-else>The employee has no review.</p>
       <router-link
+        v-if="isAdmin($store) && !this.isCurrentUser"
         :to="{
           name: 'admin-add-review',
           params: { employeeId: this.employee._id },
@@ -110,6 +111,9 @@ export default {
     lastReview() {
       return this.employee.reviews[this.employee.reviews.length - 1];
     },
+    isCurrentUser() {
+      return this.employee._id === store.state.user;
+    },
   },
   methods: {
     switchModifyMode() {
@@ -117,11 +121,9 @@ export default {
     },
     deleteEmployee() {
       if (confirm("Do you really want to delete the employee?")) {
-        console.log("delete");
         store
           .dispatch("employees/delete", this.employee._id)
           .then((data) => {
-            console.log("from profile", data);
             this.$router.push({
               name: "employees",
             });

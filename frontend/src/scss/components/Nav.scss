@@ -7,11 +7,28 @@
         min-height: $navHeight;
         display: flex;
         align-items: center;
+        justify-content: center;
 
         li {
             display: inline-block;
             margin: 0 0.5rem;
         }
+
+        a {
+
+            &:hover,
+            &:focus {
+                opacity: 0.8;
+            }
+
+            &.router-link-active {
+                font-weight: bold;
+                ;
+            }
+        }
+
     }
+
+
 
 }

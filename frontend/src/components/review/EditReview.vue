@@ -138,7 +138,6 @@ export default {
       };
     },
     editReview() {
-      console.log("editReview");
       this.$v.$touch();
       if (!this.$v.$invalid) {
         // Modify Employee
