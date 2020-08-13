@@ -117,7 +117,7 @@ export default {
       return store.state.employees.currentEmployee;
     },
     reviewerId() {
-      return store.state.user;
+      return store.state.userId;
     },
     formTitle() {
       return this.modify ? "Modify review" : "Add new review";

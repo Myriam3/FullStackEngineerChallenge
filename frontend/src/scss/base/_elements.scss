@@ -68,6 +68,10 @@
     padding: 6px 10px;
 }
 
+.stats {
+    color: map_get($colors, dark-primary);
+}
+
 .error-msg {
     color: map_get($colors, secondary);
 }

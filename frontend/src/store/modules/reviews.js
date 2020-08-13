@@ -8,11 +8,13 @@ export const state = {
 };
 
 export const mutations = {
+
     SET_REVIEWS(state, reviews) {
+
         state.reviews = reviews;
     },
-    SET_CURRENT_REVIEW(state, reviews) {
-        state.currentReview = reviews;
+    SET_CURRENT_REVIEW(state, review) {
+        state.currentReview = review;
     },
     CLEAR_CURRENT_REVIEW(state) {
         state.currentReview = null;
@@ -84,5 +86,5 @@ export const actions = {
             .catch((error) => {
                 console.log(error);
             });
-    }
+    },
 }

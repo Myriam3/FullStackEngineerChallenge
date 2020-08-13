@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from "@/store";
 import Home from '../views/Home.vue'
 import NotFound from '../components/NotFound'
 import Admin from '../views/admin/Admin.vue'
@@ -80,14 +81,44 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // Check if the user is "connected"
-  if (to.path !== '/') {
-    if (window.localStorage.getItem("connected") === "connected") {
-      next()
+  // Logged in
+  if (localStorage.getItem('connected')) {
+    if (store.state.userId) {
+      // Logged in and connected
+      next();
     } else {
+      // Not connected
+      store.dispatch('connectUser', {
+          id: localStorage.getItem('connected')
+        })
+        .then(() => {
+          next();
+        })
+        .catch((error) => {});
+    }
+  }
+  // Logged out
+  else {
+    if (to.path !== '/') {
       next({
         path: '/'
       });
+    } else {
+      next();
+    }
+  }
+
+  // Check if the user is "connected"
+  if (to.path !== '/') {
+    if (store.state.userId) {
+      // Already connected
+      next();
+    } else {
+      // First connection
+      if (store.state.userId)
+        next({
+          path: '/'
+        });
     }
   } else {
     next();

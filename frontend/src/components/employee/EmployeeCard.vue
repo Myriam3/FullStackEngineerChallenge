@@ -9,14 +9,9 @@
       <p class="year">Joined in: {{ employee.year }}</p>
       <p class="email">{{ employee.email }}</p>
     </div>
-    <div class="links">
-      <a class="link" href="#">{{ employee.reviews.length }} reviews</a>
-      <a
-        v-if="isAdmin($store) || isOwnProfile($store, employee.id)"
-        class="link"
-        href="#"
-        >{{ employee.assignments.length }} assignments</a
-      >
+    <div class="stats">
+      <span>{{ employee.reviews.length }} reviews </span>
+      <span>{{ employee.assignments.length }} assignments</span>
     </div>
   </div>
 </template>

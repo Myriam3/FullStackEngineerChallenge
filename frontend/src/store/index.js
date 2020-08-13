@@ -2,27 +2,31 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as employees from '@/store/modules/employees.js'
 import * as reviews from '@/store/modules/reviews.js'
+import * as feedbacks from '@/store/modules/feedbacks.js'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     admin: false,
+    userId: null,
     user: null
-    //Admin2'5f3502507de5653fec74a4c1' 
-    //Admin 1 '5f33569ef693110590d24f4c' 
-    //User Jane Doe '5f2fcaaf5bbb5505145a07b6'
   },
   modules: {
     employees,
-    reviews
+    reviews,
+    feedbacks
   },
   mutations: {
-    SET_USER(state, id) {
-      console.log('set user', id)
-      state.user = id;
+    SET_USER_ID(state, id) {
+      state.userId = id;
+    },
+    SET_USER(state, user) {
+      state.user = user;
     },
     CLEAR_USER(state) {
+      state.userId = null;
       state.user = null;
     },
     SET_ADMIN(state, value) {
@@ -31,15 +35,27 @@ export default new Vuex.Store({
   },
   actions: {
     connectUser({
+      dispatch,
       commit
     }, {
       id,
       isAdmin
     }) {
-      localStorage.setItem('connected', 'connected');
-      commit('SET_USER', id);
+      // Save connected id
+      localStorage.setItem('connected', id);
+      // Set current user id
+      commit('SET_USER_ID', id);
+      // Set admin/user mode
       if (isAdmin) commit('SET_ADMIN', true);
       else commit('SET_ADMIN', false);
+      // Fetch current user
+      dispatch('employees/fetchById', id)
+        .then((employee) => {
+          commit('SET_USER', employee)
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     logOut({
       commit

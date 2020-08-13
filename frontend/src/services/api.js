@@ -43,5 +43,10 @@ export default {
     },
     deleteReview(id) {
         return api.delete('/reviews/' + id)
+    },
+
+    // Feedbacks
+    addNewFeedback(feedback) {
+        return api.post('/feedbacks', feedback)
     }
 }

@@ -10,7 +10,7 @@ export default {
             return _store.state.admin
         },
         isOwnProfile(_store, id) {
-            return id === _store.state.user;
+            return id === _store.state.userId;
         }
     }
 };

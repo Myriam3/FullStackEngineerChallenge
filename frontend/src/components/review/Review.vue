@@ -17,19 +17,25 @@
       <h2 v-else class="review-title h2">{{ review.title }}</h2>
       <div class="review-info">
         <p v-if="!reviewPreview" class="review-employee">
-          Employee: <Avatar /> {{ getFullName(review.employee) }} -
-          {{ review.employee.role }}
+          Employee: <Avatar />
+          <span v-if="review.employee"
+            >{{ getFullName(review.employee) }} -
+            {{ review.employee.role }}
+          </span>
+          <span v-else>This employee has been deleted.</span>
         </p>
 
-        <p class="review-period">
-          {{ review.reviewPeriod }}
-        </p>
+        <p class="review-period">Period: {{ review.reviewPeriod }}</p>
         <p class="review-date">
           <span class="date-tag">Date: {{ formatDate(review.date) }}</span>
         </p>
         <p class="review-reviewer">
-          Reviewer: <Avatar /> {{ getFullName(review.reviewer) }} -
-          {{ review.reviewer.role }}
+          Reviewer: <Avatar />
+          <span v-if="review.reviewer"
+            >{{ getFullName(review.reviewer) }} -
+            {{ review.reviewer.role }}</span
+          >
+          <span v-else>This employee has been deleted</span>
         </p>
 
         <p class="review-score">
@@ -47,9 +53,8 @@
             See Details
           </router-link>
         </p>
-
         <p v-if="!reviewPreview" class="review-feedback-count">
-          <a href="#" class="link">{{ review.feedbacks.length }} feedback(s)</a>
+          <span class="stats">{{ review.feedbacks.length }} feedback(s)</span>
         </p>
       </div>
       <div class="review-content">
@@ -67,6 +72,7 @@
         </div>
       </div>
     </section>
+    <!-- If the admin user is the reviewer, can modify the review-->
     <div
       v-if="isAdmin($store) && !reviewPreview && this.isReviewer"
       class="modify-review"
@@ -76,6 +82,7 @@
         v-if="!this.modifyMode"
         class="btn secondary modify-btn"
         @click="switchModifyMode"
+        aria-label="Modify Review"
       >
         Modify
       </button>
@@ -93,9 +100,34 @@
         Cancel
       </button>
     </div>
-
+    <!-- Review feedbacks-->
     <section v-if="!reviewPreview" class="feedbacks">
       <h2 class="h2" id="feedbacks">Feedbacks</h2>
+      <!--If the review is assigned to the user, display feedback button-->
+      <div
+        class="add-feedback"
+        v-if="!isAdmin($store) && !reviewPreview && this.isReviewAssigned"
+      >
+        <p v-if="this.success" class="success-msg">{{ this.success }}</p>
+        <button
+          v-if="!this.modifyMode"
+          class="btn new-btn"
+          @click="switchModifyMode"
+        >
+          New feedback
+        </button>
+        <AddFeedback
+          v-if="this.modifyMode"
+          @update-success="this.handleModification"
+        />
+        <button
+          v-if="this.modifyMode"
+          class="btn link cancel-btn"
+          @click="switchModifyMode"
+        >
+          Cancel
+        </button>
+      </div>
       <template v-if="review.feedbacks.length">
         Feedbacks: {{ review.feedbacks }}
       </template>
@@ -112,6 +144,7 @@ import mixins from "@/mixins/index.js";
 import Nav from "@/components/Nav.vue";
 import Avatar from "@/components/employee/Avatar.vue";
 import EditReview from "@/components/review/EditReview.vue";
+import AddFeedback from "@/components/feedback/AddFeedback.vue";
 
 export default {
   name: "Review",
@@ -119,6 +152,7 @@ export default {
     Nav,
     Avatar,
     EditReview,
+    AddFeedback,
   },
   props: {
     reviewPreview: {
@@ -142,12 +176,21 @@ export default {
       }
     },
     isReviewer() {
-      return this.review.reviewer._id === store.state.user;
+      return (
+        this.review.reviewer && this.review.reviewer._id === store.state.userId
+      );
+    },
+    isReviewAssigned() {
+      if (store.state.user && store.state.user.assignments) {
+        return store.state.user.assignments.find(
+          (item) => item._id === this.review._id
+        );
+      }
     },
   },
   methods: {
     switchModifyMode() {
-      if (this.isAdmin(store)) this.modifyMode = !this.modifyMode;
+      this.modifyMode = !this.modifyMode;
     },
     handleModification(message) {
       this.switchModifyMode();
@@ -173,4 +216,17 @@ export default {
 </script>
 <style lang="scss">
 @import "@/scss/components/review/Review.scss";
+.add-feedback {
+  .new-btn {
+    margin: 1rem auto;
+    display: block;
+  }
+  .cancel-btn {
+    margin: 0 auto;
+    display: block;
+  }
+  .success-msg {
+    text-align: center;
+  }
+}
 </style>

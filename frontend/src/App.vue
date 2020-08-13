@@ -10,6 +10,9 @@
       </button>
       <div class="title">
         {{
+          $store.state.user ? "Hello " + $store.state.user.firstName + "! " : ""
+        }}
+        {{
           isConnected
             ? isAdmin
               ? "Welcome to the Admin dashboad!"
@@ -32,7 +35,7 @@ export default {
       return store.state.admin;
     },
     isConnected() {
-      return store.state.user;
+      return store.state.userId;
     },
   },
   methods: {
@@ -48,16 +51,6 @@ export default {
           console.log(error);
         });
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    store
-      .dispatch("logOut")
-      .then((data) => {
-        next();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
 };
 </script>

@@ -1,9 +1,5 @@
 import api from "@/services/api.js";
 
-function handleEmailError() {
-
-}
-
 export const namespaced = true;
 
 export const state = {
@@ -110,5 +106,20 @@ export const actions = {
             .catch((error) => {
                 console.log(error);
             });
+    },
+    removeAssignment({
+        dispatch
+    }, {
+        employee,
+        reviewId
+    }) {
+        employee.assignments = employee.assignments.filter(function (review) {
+            return review._id !== reviewId;
+        });
+        const id = employee._id;
+        dispatch('update', {
+            id,
+            employee
+        })
     }
 }

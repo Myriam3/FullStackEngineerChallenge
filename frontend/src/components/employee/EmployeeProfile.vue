@@ -112,7 +112,7 @@ export default {
       return this.employee.reviews[this.employee.reviews.length - 1];
     },
     isCurrentUser() {
-      return this.employee._id === store.state.user;
+      return this.employee._id === store.state.userId;
     },
   },
   methods: {
@@ -144,7 +144,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     let id = "";
     if (to.params.id) id = to.params.id;
-    else id = store.state.user; // Display current user
+    else id = store.state.userId; // Display current user
 
     store
       .dispatch("employees/fetchById", id)
