@@ -2,13 +2,11 @@
   <div class="home">
     <div @click="fakeAuthAdmin" class="col connect-btn admin card" tabindex="0">
       <Avatar />
-      <span>
-        Connect to the Admin Dashboard
-      </span>
+      <span> Connect to the <strong>Admin Dashboard</strong> </span>
     </div>
     <div @click="fakeAuthUser" class="col connect-btn user card" tabindex="0">
       <Avatar />
-      <span> Connect to the User Dashboard</span>
+      <span> Connect to the <strong>User Dashboard</strong></span>
     </div>
   </div>
 </template>

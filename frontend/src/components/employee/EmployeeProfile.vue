@@ -13,9 +13,20 @@
         >
           Modify
         </button>
+
         <button
           v-if="!this.modifyMode && !this.isCurrentUser"
           class="btn delete-btn"
+          :disabled="
+            employee._id === '5f33569ef693110590d24f4c' ||
+              employee._id === '5f2fcaaf5bbb5505145a07b6'
+          "
+          :title="
+            employee._id === '5f33569ef693110590d24f4c' ||
+            employee._id === '5f2fcaaf5bbb5505145a07b6'
+              ? 'This employee is needed for connection (instead of a real authentification)'
+              : ''
+          "
           @click="deleteEmployee"
         >
           Delete

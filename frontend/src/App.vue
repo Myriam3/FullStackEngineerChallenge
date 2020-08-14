@@ -9,9 +9,13 @@
         Log out
       </button>
       <div class="title">
-        {{
-          $store.state.user ? "Hello " + $store.state.user.firstName + "! " : ""
-        }}
+        <strong>
+          {{
+            $store.state.user
+              ? "Hello " + $store.state.user.firstName + "! "
+              : ""
+          }}
+        </strong>
         {{
           isConnected
             ? isAdmin

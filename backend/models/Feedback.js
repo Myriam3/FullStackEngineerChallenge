@@ -6,7 +6,6 @@ const feedbackSchema = mongoose.Schema({
         ref: 'Review',
         required: 'The review is required'
     },
-    //TODO: author name (if employee is deleted)
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee',

@@ -108,6 +108,7 @@ export const actions = {
     delete({
         commit
     }, id) {
+        if (id === '5f33569ef693110590d24f4c' || id === '5f2fcaaf5bbb5505145a07b6') return; // These employees are needed for connected (instead of a real authentification)
         return api
             .deleteEmployee(id)
             .then((response) => {
