@@ -241,3 +241,5 @@ _AddFeedback.vue_ is used only for adding (modifying feedback not implemented).
 - Search reviews, employees
 - Handle employee deletion (what to do with the former feedbacks and reviews)
 - ...
+
+Thank you for reading :)
