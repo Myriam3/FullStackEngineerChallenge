@@ -15,6 +15,9 @@ export default {
     getEmployees() {
         return api.get('/employees')
     },
+    getEmployee(id) {
+        return api.get('/employees/' + id)
+    },
     getEmployeeProfile(id) {
         return api.get('/employees/profile/' + id)
     },

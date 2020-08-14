@@ -128,8 +128,30 @@
           Cancel
         </button>
       </div>
+      <!--Assign feedback-->
+      <div class="assign-feedback" v-if="isAdmin($store)">
+        <button
+          v-if="!this.assigningReview"
+          class="btn new-btn"
+          @click="switchModifyMode('assign')"
+        >
+          Assign feedback
+        </button>
+        <AssignFeedack
+          v-if="this.assigningReview"
+          :passedReview="review"
+          @update-success="handleAssignment"
+        />
+        <button
+          v-if="this.assigningReview"
+          class="btn link cancel-btn"
+          @click="switchModifyMode('assign')"
+        >
+          Cancel
+        </button>
+      </div>
       <template v-if="review.feedbacks.length">
-        Feedbacks: {{ review.feedbacks }}
+        <FeedbackList :feedbackList="review.feedbacks" />
       </template>
       <p v-else>
         This review has no feedback.
@@ -145,6 +167,8 @@ import Nav from "@/components/Nav.vue";
 import Avatar from "@/components/employee/Avatar.vue";
 import EditReview from "@/components/review/EditReview.vue";
 import AddFeedback from "@/components/feedback/AddFeedback.vue";
+import AssignFeedack from "@/components/feedback/AssignFeedack.vue";
+import FeedbackList from "@/components/feedback/FeedbackList.vue";
 
 export default {
   name: "Review",
@@ -153,6 +177,8 @@ export default {
     Avatar,
     EditReview,
     AddFeedback,
+    AssignFeedack,
+    FeedbackList,
   },
   props: {
     reviewPreview: {
@@ -163,6 +189,7 @@ export default {
     return {
       modifyMode: false,
       success: false,
+      assigningReview: false,
     };
   },
   computed: {
@@ -180,6 +207,11 @@ export default {
         this.review.reviewer && this.review.reviewer._id === store.state.userId
       );
     },
+    isEmployee() {
+      return (
+        this.review.employee && this.review.employee._id === store.state.userId
+      );
+    },
     isReviewAssigned() {
       if (store.state.user && store.state.user.assignments) {
         return store.state.user.assignments.find(
@@ -189,11 +221,21 @@ export default {
     },
   },
   methods: {
-    switchModifyMode() {
-      this.modifyMode = !this.modifyMode;
+    switchModifyMode(option) {
+      if (option === "assign") {
+        this.assigningReview = !this.assigningReview;
+      } else this.modifyMode = !this.modifyMode;
     },
     handleModification(message) {
       this.switchModifyMode();
+      this.success = message;
+      window.setTimeout(() => {
+        this.success = false;
+      }, 4000);
+    },
+    handleAssignment(message) {
+      //TODO:refactor
+      this.assigningReview = false;
       this.success = message;
       window.setTimeout(() => {
         this.success = false;
@@ -216,7 +258,8 @@ export default {
 </script>
 <style lang="scss">
 @import "@/scss/components/review/Review.scss";
-.add-feedback {
+.add-feedback,
+.assign-feedback {
   .new-btn {
     margin: 1rem auto;
     display: block;

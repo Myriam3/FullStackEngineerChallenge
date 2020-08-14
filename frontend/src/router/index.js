@@ -60,11 +60,6 @@ const routes = [{
         path: 'employees/:employeeId/new-review',
         name: 'admin-add-review',
         component: EditReview
-      },
-      {
-        path: 'reviews/:id/assign',
-        name: 'admin-assign-review',
-        component: Admin
       }
     ]
   },
@@ -87,14 +82,18 @@ router.beforeEach((to, from, next) => {
       // Logged in and connected
       next();
     } else {
+      const isAdmin = localStorage.getItem('admin') === 'admin' ? 'admin' : false;
       // Not connected
       store.dispatch('connectUser', {
-          id: localStorage.getItem('connected')
+          id: localStorage.getItem('connected'),
+          isAdmin
         })
         .then(() => {
           next();
         })
-        .catch((error) => {});
+        .catch((error) => {
+          console.log(error)
+        });
     }
   }
   // Logged out

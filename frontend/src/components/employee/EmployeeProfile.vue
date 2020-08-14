@@ -77,6 +77,32 @@
       <p v-else>
         The employee has no feedback assignment.
       </p>
+      <!--Assign feedback-->
+      <div
+        class="assign-feedback"
+        v-if="isAdmin($store) && !this.isCurrentUser"
+      >
+        <p v-if="this.success" class="success-msg">{{ this.success }}</p>
+        <button
+          v-if="!this.assigningReview"
+          class="btn new-btn"
+          @click="switchModifyMode('assign')"
+        >
+          Assign feedback
+        </button>
+        <AssignFeedack
+          v-if="this.assigningReview"
+          :passedAssignee="employee"
+          @update-success="switchModifyMode('assign')"
+        />
+        <button
+          v-if="this.assigningReview"
+          class="btn link cancel-btn"
+          @click="switchModifyMode('assign')"
+        >
+          Cancel
+        </button>
+      </div>
     </section>
   </div>
 </template>
@@ -88,6 +114,7 @@ import EmployeeCard from "@/components/employee/EmployeeCard.vue";
 import EditEmployee from "@/components/employee/EditEmployee";
 import Review from "@/components/review/Review.vue";
 import ReviewList from "@/components/review/ReviewList.vue";
+import AssignFeedack from "@/components/feedback/AssignFeedack.vue";
 
 export default {
   name: "EmployeeProfile",
@@ -97,11 +124,13 @@ export default {
     Review,
     ReviewList,
     EditEmployee,
+    AssignFeedack,
   },
   data() {
     return {
       modifyMode: false,
       success: false,
+      assigningReview: false,
     };
   },
   computed: {
@@ -116,8 +145,10 @@ export default {
     },
   },
   methods: {
-    switchModifyMode() {
-      if (this.isAdmin(store)) this.modifyMode = !this.modifyMode;
+    switchModifyMode(option) {
+      if (option === "assign") {
+        this.assigningReview = !this.assigningReview;
+      } else this.modifyMode = !this.modifyMode;
     },
     deleteEmployee() {
       if (confirm("Do you really want to delete the employee?")) {
@@ -133,7 +164,7 @@ export default {
           });
       }
     },
-    handleModification(message) {
+    handleModification(message, option) {
       this.switchModifyMode();
       this.success = message;
       window.setTimeout(() => {
@@ -159,16 +190,11 @@ export default {
   mixins: [mixins],
 };
 </script>
-*
 <style lang="scss" scoped>
 .modify-employee {
   position: relative;
   .success-msg {
     text-align: center;
-  }
-  .cancel-btn {
-    display: block;
-    margin: 0 auto;
   }
   .modify-btn,
   .delete-btn {
@@ -191,5 +217,9 @@ export default {
 .new-btn {
   margin: 1rem 0;
   display: inline-block;
+}
+.cancel-btn {
+  display: block;
+  margin: 0 auto;
 }
 </style>

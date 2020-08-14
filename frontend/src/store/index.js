@@ -43,6 +43,7 @@ export default new Vuex.Store({
     }) {
       // Save connected id
       localStorage.setItem('connected', id);
+      localStorage.setItem('admin', isAdmin);
       // Set current user id
       commit('SET_USER_ID', id);
       // Set admin/user mode
@@ -61,6 +62,7 @@ export default new Vuex.Store({
       commit
     }) {
       localStorage.removeItem('connected');
+      localStorage.removeItem('admin');
       commit('CLEAR_USER');
       commit('SET_ADMIN', false);
     }

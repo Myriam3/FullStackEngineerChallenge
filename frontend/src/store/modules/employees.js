@@ -46,6 +46,17 @@ export const actions = {
                 console.log(error);
             });
     },
+    getById({},
+        id) {
+        return api
+            .getEmployee(id)
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
     addNew({}, employee) {
         return api
             .addNewEmployee(employee)
@@ -102,6 +113,33 @@ export const actions = {
             .then((response) => {
                 commit('CLEAR_CURRENT_EMPLOYEE');
                 return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    addAssignment({
+        dispatch
+    }, {
+        employeeId,
+        reviewId
+    }) {
+        return dispatch('getById', employeeId)
+            .then((employee) => {
+                const alreadyAssigned = employee.assignments.find(review => review === reviewId);
+                if (!alreadyAssigned) {
+                    employee.assignments.push(reviewId);
+                    const id = employee._id;
+                    dispatch('update', {
+                        id,
+                        employee
+                    })
+                } else {
+                    return {
+                        error: true,
+                        message: 'This review is already assigned to this employee.'
+                    }
+                }
             })
             .catch((error) => {
                 console.log(error);

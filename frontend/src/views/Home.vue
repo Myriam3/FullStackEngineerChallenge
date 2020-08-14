@@ -26,7 +26,7 @@ export default {
     fakeAuthAdmin() {
       const userId = "5f33569ef693110590d24f4c";
       store
-        .dispatch("connectUser", { id: userId, isAdmin: true })
+        .dispatch("connectUser", { id: userId, isAdmin: "admin" })
         .then((data) => {
           this.$router.push({
             name: "admin",

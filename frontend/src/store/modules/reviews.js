@@ -8,9 +8,7 @@ export const state = {
 };
 
 export const mutations = {
-
     SET_REVIEWS(state, reviews) {
-
         state.reviews = reviews;
     },
     SET_CURRENT_REVIEW(state, review) {

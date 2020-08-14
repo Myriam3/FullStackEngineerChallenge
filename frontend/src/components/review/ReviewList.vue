@@ -1,13 +1,12 @@
 <template>
-  
-    <ul class="table-list">
-      <ReviewListItem
-        v-for="(review, index) in reviewList"
-        :key="index"
-        class="table-list-item"
-        :review="review"
-      />
-    </ul>
+  <ul class="table-list">
+    <ReviewListItem
+      v-for="(review, index) in reviewList"
+      :key="index"
+      class="table-list-item"
+      :review="review"
+    />
+  </ul>
 </template>
 
 <script>
