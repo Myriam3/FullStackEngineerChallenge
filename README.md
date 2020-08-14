@@ -52,7 +52,9 @@ node server
 
 ```bash
 # 3.1 Go to the ./frontend/ folder
-# 3.2 Serve (http://localhost:8080/)
+# 3.2 Install dependencies
+npm install
+# 3.3 Serve (http://localhost:8080/)
 npm run serve
 ```
 
@@ -137,9 +139,9 @@ The Front-end app is based on Vue.js components and Router.
 
 ## Connection, Admin and User
 
-The are two modes Admin and User.
-The is no user authentification (not implemented).
-Instead there is a **choice between 2 users for testing the 2 views** (Admin and User) that are automatically connected (a the current user). The LocalStorage is used to check if the user is logged in (in _/frontend/src/router/_). The logged out button reset the current user.
+There are two modes Admin and User.
+There is no user authentification (not implemented).
+Instead there is a **choice between 2 users for testing the 2 views** (Admin and User) that are automatically connected (as the current user). The LocalStorage is used to check if the user is logged in (in _/frontend/src/router/_). The logged out button reset the current user.
 
 ## Client Router
 
@@ -150,7 +152,7 @@ The routing in the client is managed by Vue Router in ./frontend/src/router/inde
 - _/employees/profile:id_: display the **employee profile**. Used by the Admin view and the User view.
 - _/reviews/:id_: display the **review page**. Used by the Admin view and the User view.
 - _/Dashboard_: display **the current user profile** page. Use by the User view
-- \*/reviews/:id/new-feedback: Add a new Feedback for the Review. Used by the User view only
+- _/reviews/_:id/new-feedback: Add a new Feedback for the Review. Used by the User view only
 - _/admin_: Admin homepage (not very useful yet)
 - _/admin/employees/add_: Add a new employee (Admin only)
 - _/admin/employees/:employeeid/new-review_: Add or Modify a Review (Admin only)
@@ -163,7 +165,7 @@ The state is separated into 3 modules (employees, reviews, feedbacks). Each one 
 
 ## API calls
 
-The API calls are made with Axios in _./frontend/src/services/api.js_.
+The API calls are made with Axios in _./frontend/src/services/api.js_. The call are made by the State actions. Once the data is fetched, the actions commit a mutation to mutate the state.
 
 ## Components
 
@@ -216,26 +218,26 @@ The component is used:
 
 #### Forms
 
-EditReview.vue and EditEmployee.vue are used for adding (with route) or modifying (called by a parent component).
-AddFeedback is used only for adding (modifying feedback not implemented).
+_EditReview.vue_ and _EditEmployee.vue_ are used for adding (with route) or modifying (called by a parent component).
+_AddFeedback.vue_ is used only for adding (modifying feedback not implemented).
 
 # Assumptions
 
 - The employee (User) can add a feedback to only an assigned review.
-- The employee (User) can see other employees profile and reviews
-- The feedback is not anonymous
-- Feedback can be added only by a User not by and Admin user
-- There is no need to display all the reviews somewhere
-- A Feedback is linked to one review, it appears in its Review page only (Improvement: given feedbacks history in the Employee profile)
+- The employee (User) can see other employees profile and reviews.
+- The feedback is not anonymous.
+- Feedback can be added only by a User not by an Admin.
+- A Feedback is linked to one review, it appears only in its Review page (Improvement: given feedbacks history in the Employee profile)
 - A user (admin) cannot delete oneself
+- Admin user cannot give feedback
 
 # Not implemented / Improvements
 
-- user authentification
-- deleting/modifying feedback
-- Basic error handling and form validion only
-- Prevent review assignment for feedback if own review (currently can give a feedback to oneself)
+- User authentification (token or password)
+- Deleting/Modifying feedback
+- Deleting Review
+- More error handling and form validation
+- Prevent assigning a review for feedback to the reviewee (currently can give a feedback to oneself)
 - Search reviews, employees
-- Admin user cannot give feedback
 - Handle employee deletion (what to do with the former feedbacks and reviews)
 - ...
